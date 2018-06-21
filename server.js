@@ -2,13 +2,17 @@ const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
 const cors = require('cors');
+const passport = require('passport');
 const mongoose = require('mongoose');
 
 const app = express();
 
-const books = require('./routes/books');
+app.use(express.static(path.join(__dirname, 'public')));
 
 const port = 3000;
+
+const books = require('./routes/books');
+const users = require('./routes/users');
 
 // Connect to Database
 const config = require('./config/database')
@@ -22,10 +26,10 @@ mongoose.connection.on('error', (error) => {
 
 // Middleware
 app.use(cors());
-app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.json());
 
 app.use('/api/books', books);
+app.use('/api/users', users);
 
 app.get('/', (req, res) => {
     res.send('Invalid Endpoint');
