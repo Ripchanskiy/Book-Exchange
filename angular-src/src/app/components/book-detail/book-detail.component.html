@@ -4,6 +4,7 @@
         <strong>ID: </strong>{{book._id}}</p>
     <p>
         <strong>Author: </strong>{{book.author}}</p>
+    <button (click)="deleteBook(book._id)">Delete Book</button>
 </div>
 
 <div *ngIf="!book">

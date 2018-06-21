@@ -22,4 +22,8 @@ export class BookService {
         }
         return this.http.post('http://localhost:3000/api/books/add', book, httpOptions);
     }
+
+    deleteBook(id) {
+        return this.http.delete('http://localhost:3000/api/books/' + id);
+    }
 }

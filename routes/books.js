@@ -43,7 +43,13 @@ router.post('/add', (req, res, next) => {
 
 // Delete book
 router.delete('/:id', (req, res, next) => {
-
+    Book.remove({_id: req.params.id }, (error) => {
+        if(error) {
+            res.json({success: false, message: "Could not remove book"});
+        } else {
+            res.json({success: false, message: "Book removed"});
+        }
+    })
 });
 
 module.exports = router;

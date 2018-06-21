@@ -17,7 +17,6 @@ export class AddBookComponent implements OnInit {
 
     ngOnInit() {
 
-
     }
 
     submitBook() {
