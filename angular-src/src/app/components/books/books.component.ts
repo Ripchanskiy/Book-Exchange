@@ -1,15 +1,23 @@
 import { Component, OnInit } from '@angular/core';
+import { BookService } from '../../services/book.service';
+import { Observable } from 'rxjs';
 
 @Component({
-  selector: 'app-books',
-  templateUrl: './books.component.html',
-  styleUrls: ['./books.component.css']
+    selector: 'app-books',
+    templateUrl: './books.component.html',
+    styleUrls: ['./books.component.css']
 })
 export class BooksComponent implements OnInit {
 
-  constructor() { }
+    books: Object;
 
-  ngOnInit() {
-  }
+    constructor(private bookService: BookService) { }
+
+    ngOnInit() {
+
+        this.bookService.getBooks().subscribe(books => this.books = books);
+    }
+
+
 
 }

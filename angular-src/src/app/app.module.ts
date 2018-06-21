@@ -13,8 +13,8 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 const appRoutes: Routes = [    
     {path: '', component: HomeComponent},
     {path: 'books', component: BooksComponent},
-    {path: 'books/:id', component: BookDetailComponent},
     {path: 'books/add', component: AddBookComponent},
+    {path: 'books/:id', component: BookDetailComponent},
 ];
 
 @NgModule({

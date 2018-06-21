@@ -17,7 +17,7 @@ router.get('/', (req, res, next) => {
 router.get('/:id', (req, res, next) => {
     Book.findById(req.params.id, (error, book) => {
         if(error) { 
-            res.json({success: false, message: 'Could not find book'});
+            throw error;
         } else {
             res.json(book);
         }
