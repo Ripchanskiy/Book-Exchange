@@ -14,11 +14,16 @@ import { RegisterComponent } from './components/register/register.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { LoginComponent } from './components/login/login.component';
 
+import { ValidateService } from './services/validate.service';
+
 const appRoutes: Routes = [    
     {path: '', component: HomeComponent},
     {path: 'books', component: BooksComponent},
     {path: 'books/add', component: AddBookComponent},
     {path: 'books/:id', component: BookDetailComponent},
+    {path: 'register', component: RegisterComponent},
+    {path: 'login', component: LoginComponent},
+    {path: 'profile', component: ProfileComponent}
 ];
 
 @NgModule({
@@ -39,7 +44,7 @@ const appRoutes: Routes = [
     FormsModule,
     RouterModule.forRoot(appRoutes)
   ],
-  providers: [],
+  providers: [ValidateService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
