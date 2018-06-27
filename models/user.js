@@ -28,7 +28,7 @@ module.exports.getUserById = function(id, callback) {
     User.findById(id, callback);
 }
 
-module.exports.getUserById = function(username, callback) {
+module.exports.getUserByUsername = function(username, callback) {
     const query = {username: username};
     User.findOne(query, callback);
 }
@@ -40,5 +40,12 @@ module.exports.addUser = function(newUser, callback) {
             newUser.password = hash;
             newUser.save(callback);
         })
+    });
+}
+
+module.exports.comparePassword = function(candidatePassword, hash, callback) {
+    bcrypt.compare(candidatePassword, hash, (error, isMatch) => {
+        if(error) throw error;
+        callback(null, isMatch);
     });
 }
