@@ -21,9 +21,22 @@ export class AuthService {
 
     authenticateUser(user) {
         const httpOptions = {
-            headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+            headers: new HttpHeaders({ 'Content-Type': 'application/json'})
         }
         return this.http.post('http://localhost:3000/api/users/authenticate', user, httpOptions);
+    }
+
+    getProfile() {
+        this.loadToken();
+        const httpOptions = {
+            headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': this.authToken })
+        }
+        return this.http.get('http://localhost:3000/api/users/profile', httpOptions);
+    }
+
+    loadToken() {
+        const token = localStorage.getItem('id_token');
+        this.authToken = token;
     }
 
     storeUserData(token, user) {
