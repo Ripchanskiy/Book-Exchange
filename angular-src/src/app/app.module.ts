@@ -10,6 +10,9 @@ import { BookDetailComponent } from './components/book-detail/book-detail.compon
 import { BooksComponent } from './components/books/books.component';
 import { HomeComponent } from './components/home/home.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
+import { RegisterComponent } from './components/register/register.component';
+import { ProfileComponent } from './components/profile/profile.component';
+import { LoginComponent } from './components/login/login.component';
 
 const appRoutes: Routes = [    
     {path: '', component: HomeComponent},
@@ -25,7 +28,10 @@ const appRoutes: Routes = [
     BookDetailComponent,
     BooksComponent,
     HomeComponent,
-    NavbarComponent
+    NavbarComponent,
+    RegisterComponent,
+    ProfileComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
