@@ -47,7 +47,7 @@ router.delete('/:id', (req, res, next) => {
         if(error) {
             res.json({success: false, message: "Could not remove book"});
         } else {
-            res.json({success: false, message: "Book removed"});
+            res.json({success: true, message: "Book removed"});
         }
     })
 });

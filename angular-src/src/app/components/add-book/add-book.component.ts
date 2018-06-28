@@ -28,10 +28,13 @@ export class AddBookComponent implements OnInit {
                 author: this.author
             }
 
-            this.bookService.addBook(book).subscribe(data => {
-                console.log(data);
+            this.bookService.addBook(book).subscribe((data: any) => {
+                if(data.success) {
+                    this.router.navigate(['/books']);                    
+                } else {
+                    console.log(data.message);
+                }
             });
-            //this.router.navigate(['/books']);
         } else {
             console.log('Please fill in all fields');
         }
