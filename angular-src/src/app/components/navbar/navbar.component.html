@@ -18,16 +18,16 @@
             </li>
         </ul>
         <ul class="navbar-nav my-2 my-lg-0">
-            <li class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
+            <li *ngIf="authService.loggedIn()" class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
                 <a class="nav-link" routerLink="profile">Profile</a>
             </li>
-            <li class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
-                <a class="nav-link" routerLink="login">Log In</a>
-            </li>
-            <li class="nav-item">
+            <li *ngIf="authService.loggedIn()" class="nav-item">
                 <a class="nav-link" (click)="onLogoutClick()" href="#">Log Out</a>
             </li>
-            <li class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
+            <li *ngIf="!authService.loggedIn()" class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
+                <a class="nav-link" routerLink="login">Log In</a>
+            </li>
+            <li *ngIf="!authService.loggedIn()" class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
                 <a class="nav-link" routerLink="register">Register</a>
             </li>
         </ul>

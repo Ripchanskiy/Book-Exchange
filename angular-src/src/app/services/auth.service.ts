@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 
 @Injectable({
@@ -37,6 +38,13 @@ export class AuthService {
     loadToken() {
         const token = localStorage.getItem('id_token');
         this.authToken = token;
+    }
+
+    loggedIn() {
+        if(localStorage.getItem('id_token')) {
+            return true;
+        }
+        return false;
     }
 
     storeUserData(token, user) {
