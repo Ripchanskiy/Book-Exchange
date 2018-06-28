@@ -33,6 +33,7 @@ export class RegisterComponent implements OnInit {
             password: this.password
         }
 
+        // TODO: Update form to remove console.logs
         // Required Fields
         if(!this.validateService.validateRegister(user)) {
             console.log('Please fill in all fields');
@@ -45,12 +46,10 @@ export class RegisterComponent implements OnInit {
         }
 
         // Register User
-        this.authService.registerUser(user).subscribe(data => {
-            console.log(data);
+        this.authService.registerUser(user).subscribe((data: any) => {
+            if(data.success) {
+                this.router.navigate(['/login']);
+            }
         });
-        //this.router.navigate(['/login']);
     }
-
-    
-
 }
