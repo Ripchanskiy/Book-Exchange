@@ -1,13 +1,41 @@
-<h2 class="page-header">Add Book</h2>
-<br />
-<form (submit)="submitBook()"> 
-    <div class="form-group">
-        <label >Title</label>
-        <input type="text" [(ngModel)]="title" name="title" class="form-control">
-    </div>
-    <div class="form-group">
-        <label >Author</label>
-        <input type="text" [(ngModel)]="author" name="author" class="form-control">
-    </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
-</form>
+<div *ngIf="this.auth.loggedIn(); else logInToAddBook" class="container">
+    <h2 class="page-header">Add Book</h2>
+    <br />
+    <form (submit)="submitBook()">
+        <div class="form-group">
+            <label>Title</label>
+            <input type="text" [(ngModel)]="title" name="title" class="form-control">
+        </div>
+        <div class="form-group">
+            <label>Author</label>
+            <input type="text" [(ngModel)]="author" name="author" class="form-control">
+        </div>
+        <div class="form-group">
+            <label>ISBN</label>
+            <input type="text" [(ngModel)]="isbn" name="isbn" class="form-control">
+        </div>
+        <div class="form-group">
+            <label>Category</label>
+            <select [(ngModel)]="category" name="category" class="form-control">
+                <option *ngFor="let category of categories" >{{category}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label>Publisher</label>
+            <input type="text" [(ngModel)]="publisher" name="publisher" class="form-control">
+        </div>
+        <div class="form-group">
+            <label>Description</label>
+            <textarea [(ngModel)]="description" name="description" class="form-control" rows="5"></textarea>
+        </div>
+        <div class="form-group">
+            <label>Price</label>
+            <input type="text" [(ngModel)]="price" name="price" class="form-control">
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+
+<ng-template #logInToAddBook>
+    <h1>You need to be logged in to sell a book!</h1>
+</ng-template>

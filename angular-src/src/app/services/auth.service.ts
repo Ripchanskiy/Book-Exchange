@@ -35,6 +35,14 @@ export class AuthService {
         return this.http.get('http://localhost:3000/api/users/profile', httpOptions);
     }
 
+    getUser(): any {
+        if(this.loggedIn()) {
+            let user = JSON.parse(localStorage.getItem('user'));
+            return user;
+        }
+        return null;
+    }
+
     loadToken() {
         const token = localStorage.getItem('id_token');
         this.authToken = token;

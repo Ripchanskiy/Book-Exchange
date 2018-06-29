@@ -11,25 +11,34 @@ const BookSchema = mongoose.Schema({
         type: String,
         required: true
     },
-    /*
+    isbn: {
+        type: String,
+        required: true
+    },
+    category: {
+        type: String,
+        required: true
+    },
+    publisher: {
+        type: String,
+        required: true
+    },
     description: {
-        type: String,
-        required: true
-    },
-    sellerName: {
-        type: String,
-        required: true
-    },
-    sellerId: {
         type: String,
         required: true
     },
     price: {
         type: String,
         required: true
-    }
-    */
-    
+    },
+    postedOn: {
+        type: Date,
+        required: true
+    },
+    seller: {
+        type: Object,
+        required: true
+    }  
 });
 
 const Book = module.exports = mongoose.model('Book', BookSchema)

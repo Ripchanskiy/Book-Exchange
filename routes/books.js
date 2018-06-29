@@ -26,14 +26,22 @@ router.get('/:id', (req, res, next) => {
 
 // Add new book
 router.post('/add', (req, res, next) => {
-    
+
     let newBook = new Book({
         title: req.body.title,
-        author: req.body.author
+        author: req.body.author,
+        isbn: req.body.isbn,
+        category: req.body.category,
+        publisher: req.body.publisher,
+        description: req.body.description,
+        price: req.body.price,
+        postedOn: req.body.postedOn,    
+        seller: req.body.seller,
     });
 
     newBook.save(error => {
         if(error) {
+            console.log(error);
             res.json({success: false, message: 'Failed to add book'});
         } else {
             res.json({success: true, message: 'Book added'})
