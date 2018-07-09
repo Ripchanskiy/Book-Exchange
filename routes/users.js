@@ -4,6 +4,8 @@ const passport = require('passport');
 const jwt = require('jsonwebtoken');
 const User = require('../models/user');
 const config = require('../config/database');
+const multer = require('multer');
+const path = require('path');
 
 router.post('/register', (req, res, next) => {
     let newUser = new User({
@@ -59,5 +61,30 @@ router.post('/authenticate', (req, res, next) => {
 router.get('/profile', passport.authenticate('jwt', {session: false}), (req, res, next) => {
     res.json({user: req.user});
 });
+
+// Image Uploading
+// Set Storage Engine
+const storage = multer.diskStorage({
+    destination: './public/uploads/users/',
+    filename: function(req, file, cb) {
+        cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname))
+    }
+});
+
+// Init Upload
+const upload = multer({
+    storage: storage
+}).single('image');
+
+router.post('/upload', (req, res) => {
+    upload(req, res, (err) => {
+        if(err) {
+            console.log(err);
+        } else {
+            console.log(res.file);
+        }
+    })
+})
+
 
 module.exports = router;

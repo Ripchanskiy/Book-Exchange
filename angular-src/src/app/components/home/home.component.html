@@ -1,3 +1,17 @@
-<p>
-  home works!
-</p>
+<div class="container">
+    <div *ngIf="message">
+        <p>Hello</p>
+    </div>
+
+    <form (ngSubmit)="uploadImage()">
+        <div class="form-group">
+            <input type="file" class="form-control" name="image" (change)="onFileSelected($event)" accept="image/png, image/jpeg, image/gif">
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+
+    <div *ngIf="imagePath">
+            <p>Hello</p>
+        </div>
+    
+</div>

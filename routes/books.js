@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const Book = require('../models/book');
+const multer = require('multer');
+const path = require('path');
 
 // Get all books
 router.get('/', (req, res, next) => {
@@ -59,5 +61,29 @@ router.delete('/:id', (req, res, next) => {
         }
     })
 });
+
+// Image Uploading
+// Set Storage Engine
+const storage = multer.diskStorage({
+    destination: './public/uploads/users/',
+    filename: function(req, file, cb) {
+        cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname))
+    }
+});
+
+// Init Upload
+const upload = multer({
+    storage: storage
+}).single('image');
+
+router.post('/upload', (req, res) => {
+    upload(req, res, (err) => {
+        if(err) {
+            console.log(err);
+        } else {
+            console.log(res.file);
+        }
+    })
+})
 
 module.exports = router;
