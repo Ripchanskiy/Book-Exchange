@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { UploadService } from '../../services/upload.service';
 
 @Component({
     selector: 'app-home',
@@ -11,21 +12,24 @@ export class HomeComponent implements OnInit {
     message: string;
     selectedFile: File = null;
 
-    constructor(private http: HttpClient) { }
+    constructor(private http: HttpClient,
+                private uploadService: UploadService) { }
 
     ngOnInit() {
     }
 
     onFileSelected(event) {
         this.selectedFile = <File>event.target.files[0];
-    }    
+    }     
 
     uploadImage() {
-        console.log(this.selectedFile);
         const fd = new FormData();
         fd.append('image', this.selectedFile, this.selectedFile.name);
-        this.http.post('http://localhost:3000/api/users/upload', fd).subscribe(res => {
-            console.log('Res: ' + res);
-        })
+        this.uploadService.uploadBookImage(fd).subscribe(res => {
+            console.log('res:');
+            console.log(res);
+        });        
     }
+
+    
 }

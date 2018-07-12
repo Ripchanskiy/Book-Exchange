@@ -4,6 +4,10 @@
         <strong>ID: </strong>{{book._id}}</p>
     <p>
         <strong>Author: </strong>{{book.author}}</p>
+    <p>
+        <strong>ImagePath: </strong>{{book.imagePath}}</p>
+        <img src={{book.imagePath}} alt="">
+        <br />
     <button (click)="deleteBook(book._id)">Delete Book</button>
 </div>
 

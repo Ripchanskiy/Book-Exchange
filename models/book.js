@@ -31,6 +31,10 @@ const BookSchema = mongoose.Schema({
         type: String,
         required: true
     },
+    imagePath: {
+        type: String,
+        required: true
+    },
     postedOn: {
         type: Date,
         required: true

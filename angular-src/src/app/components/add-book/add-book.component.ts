@@ -3,6 +3,7 @@ import { BookService } from '../../services/book.service';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { ValidateService } from '../../services/validate.service';
+import { UploadService } from '../../services/upload.service';
 
 import { categories } from '../../categories';
 
@@ -22,18 +23,29 @@ export class AddBookComponent implements OnInit {
     price: string;
     postedOn: Date;
     seller: any;
+    imagePath: string;
+
+    selectedFile: File;
 
     categories: string[];
 
     constructor(private bookService: BookService,
                 private router: Router,
-                private auth: AuthService) { }
+                private auth: AuthService,
+                private uploadService: UploadService) { }
 
     ngOnInit() {
         this.categories = categories;
     }
 
+    onFileSelected(event) {
+        this.selectedFile = <File>event.target.files[0];
+    }     
+
+    // TODO: Update form validation
     submitBook() {
+
+        this.uploadImage();
 
         if ((this.title != undefined && this.title != '') && (this.author != undefined && this.author != '')) {
 
@@ -45,6 +57,7 @@ export class AddBookComponent implements OnInit {
                 publisher: this.publisher,
                 description: this.description,
                 price: this.price,
+                imagePath: this.imagePath,
                 postedOn: new Date().getDate(),
                 seller: this.auth.getUser()
             }
@@ -59,6 +72,15 @@ export class AddBookComponent implements OnInit {
         } else {
             console.log('Please fill in all fields');
         }
+    }
+
+    uploadImage() {
+        const fd = new FormData();
+        fd.append('image', this.selectedFile, this.selectedFile.name);
+        this.uploadService.uploadBookImage(fd).subscribe((res: any) => {
+            this.imagePath = 'http://localhost:3000' + res.path.replace('public', '');
+            console.log(this.imagePath)
+        });        
     }
 
 }

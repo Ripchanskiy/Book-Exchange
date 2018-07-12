@@ -37,6 +37,7 @@ router.post('/add', (req, res, next) => {
         publisher: req.body.publisher,
         description: req.body.description,
         price: req.body.price,
+        imagePath: req.body.imagePath,
         postedOn: req.body.postedOn,    
         seller: req.body.seller,
     });
@@ -65,9 +66,9 @@ router.delete('/:id', (req, res, next) => {
 // Image Uploading
 // Set Storage Engine
 const storage = multer.diskStorage({
-    destination: './public/uploads/users/',
+    destination: './public/uploads/books/',
     filename: function(req, file, cb) {
-        cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname))
+        cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
     }
 });
 
@@ -80,8 +81,9 @@ router.post('/upload', (req, res) => {
     upload(req, res, (err) => {
         if(err) {
             console.log(err);
+            res.json({success: false, message: 'Could not upload image'})
         } else {
-            console.log(res.file);
+            res.json({success: true, message: 'Image uploaded', path: req.file.path})
         }
     })
 })

@@ -21,6 +21,10 @@
             </select>
         </div>
         <div class="form-group">
+            <label>Photo</label>
+            <input type="file" class="form-control" name="image" (change)="onFileSelected($event)" accept="image/png, image/jpeg, image/gif">
+        </div>
+        <div class="form-group">
             <label>Publisher</label>
             <input type="text" [(ngModel)]="publisher" name="publisher" class="form-control">
         </div>
