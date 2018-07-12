@@ -13,6 +13,9 @@ export class UploadService {
     }
 
     uploadBookImage(data) {
-        return this.http.post('http://localhost:3000/api/books/upload', data);
+        return this.http.post('http://localhost:3000/api/books/upload', data, {
+            reportProgress: true,
+            observe: 'events'
+        });
     }
 }

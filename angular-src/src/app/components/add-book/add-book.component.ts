@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { ValidateService } from '../../services/validate.service';
 import { UploadService } from '../../services/upload.service';
+import { HttpEventType } from '@angular/common/http';
 
 import { categories } from '../../categories';
 
@@ -26,6 +27,7 @@ export class AddBookComponent implements OnInit {
     imagePath: string;
 
     selectedFile: File;
+    uploading: boolean = false;
 
     categories: string[];
 
@@ -40,15 +42,16 @@ export class AddBookComponent implements OnInit {
 
     onFileSelected(event) {
         this.selectedFile = <File>event.target.files[0];
-    }     
+        this.uploadImage();
+    }
 
     // TODO: Update form validation
     submitBook() {
 
-        this.uploadImage();
-
         if ((this.title != undefined && this.title != '') && (this.author != undefined && this.author != '')) {
 
+
+            console.log(this.imagePath);
             const book = {
                 title: this.title,
                 author: this.author,
@@ -73,13 +76,18 @@ export class AddBookComponent implements OnInit {
             console.log('Please fill in all fields');
         }
     }
-
+    
     uploadImage() {
         const fd = new FormData();
         fd.append('image', this.selectedFile, this.selectedFile.name);
-        this.uploadService.uploadBookImage(fd).subscribe((res: any) => {
-            this.imagePath = 'http://localhost:3000' + res.path.replace('public', '');
-            console.log(this.imagePath)
+        this.uploadService.uploadBookImage(fd).subscribe((event: any) => {
+            if(event.type === HttpEventType.UploadProgress) {
+                console.log('Upload Progess:' + Math.round(event.loaded / event.total * 100) + '%');
+            } else if (event.type === HttpEventType.Response) {
+                this.imagePath = 'http://localhost:3000' + event.body.path.replace('public', '');
+                console.log(event.body.path);
+                this.uploading = false;               
+            }
         });        
     }
 
