@@ -22,12 +22,6 @@ a {
     width: 100px;
 }
 
-.booklist-item p {
-    max-height: 120px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
 .booklist-item :hover {
     background-color: #b1bfcc;
 }

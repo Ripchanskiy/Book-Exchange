@@ -21,7 +21,4 @@ export class BooksComponent implements OnInit {
         this.bookService.getBooks().subscribe(books => this.books = books);
         //this.bookService.getBooks().subscribe((books: any) => console.log(books[1].seller));
     }
-
-
-
 }

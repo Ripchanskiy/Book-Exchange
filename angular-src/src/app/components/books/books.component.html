@@ -15,13 +15,12 @@
             <hr>
             <a routerLink="/books/{{book._id}}"><div class="row">
                 <div class="col-2">
-
                     <img src={{book.imagePath}} onError="this.src='/assets/No_Image_Available.jpg'" class="img-thumbnail booklist-item-image" alt="">
                 </div>
                 <div class="col-7">
                     <h4>{{book.title}}</h4>
-                    <p class="author">{{book.author}}</p>
-                    <p class="price">${{book.price}}</p>
+                    <p>{{book.author}}</p>
+                    <p>{{book.condition}} Condtion <br> ${{book.price}}</p>
                 </div>
                 <div class="col-3">
                     <h4>Seller</h4>
