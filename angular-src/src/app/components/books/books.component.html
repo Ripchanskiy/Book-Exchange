@@ -15,7 +15,8 @@
             <hr>
             <a routerLink="/books/{{book._id}}"><div class="row">
                 <div class="col-2">
-                    <img src={{book.imagePath}} class="img-thumbnail booklist-item-image" alt="">
+
+                    <img src={{book.imagePath}} onError="this.src='/assets/No_Image_Available.jpg'" class="img-thumbnail booklist-item-image" alt="">
                 </div>
                 <div class="col-7">
                     <h4>{{book.title}}</h4>
