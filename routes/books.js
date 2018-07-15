@@ -35,6 +35,7 @@ router.post('/add', (req, res, next) => {
         isbn: req.body.isbn,
         category: req.body.category,
         publisher: req.body.publisher,
+        condition: req.body.condition,
         description: req.body.description,
         price: req.body.price,
         imagePath: req.body.imagePath,

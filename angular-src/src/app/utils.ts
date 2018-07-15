@@ -11,3 +11,11 @@ export const categories = [
     "Mind, Body & Spirit",
     "Science Fiction, Fantasy & Horror",
 ];
+
+export const conditions = [
+    "Very Good",
+    "Good",
+    "Average",
+    "Poor",
+    "Very Poor"
+];

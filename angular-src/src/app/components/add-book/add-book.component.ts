@@ -6,7 +6,7 @@ import { ValidateService } from '../../services/validate.service';
 import { UploadService } from '../../services/upload.service';
 import { HttpEventType } from '@angular/common/http';
 
-import { categories } from '../../categories';
+import { categories, conditions } from '../../utils';
 
 @Component({
     selector: 'app-add-book',
@@ -20,6 +20,7 @@ export class AddBookComponent implements OnInit {
     isbn: string;
     category: string;
     publisher: string;
+    condition: string;
     description: string;    
     price: string;
     postedOn: Date;
@@ -30,6 +31,7 @@ export class AddBookComponent implements OnInit {
     uploading: boolean = false;
 
     categories: string[];
+    conditions: string[];
 
     constructor(private bookService: BookService,
                 private router: Router,
@@ -38,6 +40,7 @@ export class AddBookComponent implements OnInit {
 
     ngOnInit() {
         this.categories = categories;
+        this.conditions = conditions;
     }
 
     onFileSelected(event) {
@@ -58,6 +61,7 @@ export class AddBookComponent implements OnInit {
                 isbn: this.isbn,
                 category: this.category,
                 publisher: this.publisher,
+                condition: this.condition,
                 description: this.description,
                 price: this.price,
                 imagePath: this.imagePath,

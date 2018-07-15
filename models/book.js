@@ -20,20 +20,21 @@ const BookSchema = mongoose.Schema({
         required: true
     },
     publisher: {
+        type: String
+    },
+    condition: {
         type: String,
         required: true
     },
     description: {
-        type: String,
-        required: true
+        type: String
     },
     price: {
         type: String,
         required: true
     },
     imagePath: {
-        type: String,
-        required: true
+        type: String
     },
     postedOn: {
         type: Date,
