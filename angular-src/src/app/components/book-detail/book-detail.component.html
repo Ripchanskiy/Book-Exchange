@@ -6,7 +6,7 @@
         <strong>Author: </strong>{{book.author}}</p>
         <img src={{book.imagePath}} onError="this.src='/assets/No_Image_Available.jpg'"alt="image of book">
         <br />
-    <button (click)="deleteBook(book._id)" class="btn btn-danger" >Delete Book</button>
+    <button *ngIf="sameUser()" (click)="deleteBook(book._id)" class="btn btn-danger" >Delete Book</button>
 </div>
 
 <div *ngIf="!book">

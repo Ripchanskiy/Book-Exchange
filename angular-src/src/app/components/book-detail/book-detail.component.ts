@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BookService } from '../../services/book.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
     selector: 'app-book-detail',
@@ -9,11 +10,12 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class BookDetailComponent implements OnInit {
 
-    book: Object;
+    book: any;
 
     constructor(private bookService: BookService,
                 private router: Router,
-                private route: ActivatedRoute) { }
+                private route: ActivatedRoute,
+                private auth: AuthService) { }
 
     ngOnInit() {
 
@@ -29,6 +31,14 @@ export class BookDetailComponent implements OnInit {
                 console.log(data.message);
             }
         });
+    }
+
+    sameUser() {        
+        if(this.auth.loggedIn() && (this.book.seller.id === this.auth.getUser().id)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
 }
