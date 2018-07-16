@@ -16,10 +16,15 @@ router.post('/register', (req, res, next) => {
     });
 
     User.addUser(newUser, (error, user) => {
-        if(error) {
-            res.json({success: false, message: 'Failed to register user'});
+        if (error) {
+            if (error.code === 11000) {
+                res.json({ success: false, message: 'That username or email is already in use' });
+            } else {
+                res.json({ success: false, message: 'Failed to register user' });
+                console.log(error.code);
+            }
         } else {
-            res.json({success: true, message: 'Added user'});
+            res.json({ success: true, message: 'Added user' });
         }
     });
 });
@@ -29,15 +34,15 @@ router.post('/authenticate', (req, res, next) => {
     const password = req.body.password;
 
     User.getUserByUsername(username, (error, user) => {
-        if(error) throw error;
-        if(!user) {
-           return res.json({success: false, message: "User not found"});
+        if (error) throw error;
+        if (!user) {
+            return res.json({ success: false, message: "User not found" });
         }
 
         User.comparePassword(password, user.password, (error, isMatch) => {
-            if(error) throw error;
-            if(isMatch) {
-                const token = jwt.sign({data: user}, config.secret, {
+            if (error) throw error;
+            if (isMatch) {
+                const token = jwt.sign({ data: user }, config.secret, {
                     expiresIn: 604800 // 1 Week
                 });
 
@@ -52,21 +57,21 @@ router.post('/authenticate', (req, res, next) => {
                     }
                 });
             } else {
-                return res.json({success: false, message: 'Wrong password'});
+                return res.json({ success: false, message: 'Wrong password' });
             }
         })
     });
 });
 
-router.get('/profile', passport.authenticate('jwt', {session: false}), (req, res, next) => {
-    res.json({user: req.user});
+router.get('/profile', passport.authenticate('jwt', { session: false }), (req, res, next) => {
+    res.json({ user: req.user });
 });
 
 // Image Uploading
 // Set Storage Engine
 const storage = multer.diskStorage({
     destination: './public/uploads/users/',
-    filename: function(req, file, cb) {
+    filename: function (req, file, cb) {
         cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname))
     }
 });
@@ -78,7 +83,7 @@ const upload = multer({
 
 router.post('/upload', (req, res) => {
     upload(req, res, (err) => {
-        if(err) {
+        if (err) {
             console.log(err);
         } else {
             console.log(req.file);
