@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
-import { Router } from '@angular/router';
+import { TitleCasePipe } from '@angular/common'
 
 @Component({
     selector: 'app-profile',
@@ -9,14 +9,15 @@ import { Router } from '@angular/router';
 })
 export class ProfileComponent implements OnInit {
 
-    user: Object;
+    user: any;
 
     constructor(private authService: AuthService,
-                private router: Router) { }
+                private titleCasePipe: TitleCasePipe) { }
 
     ngOnInit() {
         this.authService.getProfile().subscribe((profile: any) => {
             this.user = profile.user;
+            this.user.name = this.titleCasePipe.transform(this.user.name);
         });
     }
 

@@ -1,5 +1,8 @@
 <h2 class="page-header">Register</h2>
 <br />
+<div *ngIf="message" class="alert alert-danger">
+    {{message}}
+</div>
 <form (ngSubmit)="onRegisterSubmit()"> 
     <div class="form-group">
         <label >Name</label>

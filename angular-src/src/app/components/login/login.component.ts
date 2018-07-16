@@ -11,27 +11,34 @@ export class LoginComponent implements OnInit {
 
     username: string;
     password: string;
+    message: string;
 
     constructor(private authService: AuthService,
-                private router: Router) { }
+        private router: Router) { }
 
     ngOnInit() {
     }
 
     onLoginSubmit() {
-        const user = {
-            username: this.username,
-            password: this.password
-        }
-
-        this.authService.authenticateUser(user).subscribe((data: any) => {
-            if(data.success) {
-                this.authService.storeUserData(data.token, data.user);
-                this.router.navigate(['/profile']);
-            } else {
+        if (!this.username || this.username == '') {
+            this.message = 'Please enter your username.'
+        } else if (!this.password || this.password == '') {
+            this.message = 'Please enter your password.'
+        } else {
+            const user = {
+                username: this.username.toLowerCase(),
+                password: this.password
             }
-        });
 
+            this.authService.authenticateUser(user).subscribe((data: any) => {
+                if (data.success) {
+                    this.authService.storeUserData(data.token, data.user);
+                    this.router.navigate(['/profile']);
+                } else {
+                    this.message = data.message;
+                }
+            });
+        }
     }
 
 }

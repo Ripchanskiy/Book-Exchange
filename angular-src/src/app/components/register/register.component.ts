@@ -15,41 +15,44 @@ export class RegisterComponent implements OnInit {
     email: string;
     password: string;
 
+    message: string;
+
     model: any = {};
 
     constructor(private validateService: ValidateService,
-                private authService: AuthService,
-                private router: Router) { }
+        private authService: AuthService,
+        private router: Router) { }
 
     ngOnInit() {
     }
 
     onRegisterSubmit() {
-        
-        const user = {
-            name: this.name,
-            username: this.username,
-            email: this.email,
-            password: this.password
-        }
 
-        // TODO: Update form to remove console.logs
-        // Required Fields
-        if(!this.validateService.validateRegister(user)) {
-            console.log('Please fill in all fields');
-            return false;
-        }
+        if (!this.name || this.name == '') {
+            this.message = 'Please enter your name.'
+        } else if (!this.username || this.username == '') {
+            this.message = 'Please enter your username.'
+        } else if (!this.validateService.validateEmail(this.email)) {
+            this.message = 'Please enter a valid email'
+        } else if (!this.validateService.validatePassword(this.password)) {
+            this.message = 'That is not a valid password'
+        } else {
 
-        if(!this.validateService.validateEmail(user.email)) {
-            console.log('Please enter a valid email address');
-            return false;
-        }
-
-        // Register User
-        this.authService.registerUser(user).subscribe((data: any) => {
-            if(data.success) {
-                this.router.navigate(['/login']);
+            const user = {
+                name: this.name.toLowerCase(),
+                username: this.username.toLowerCase(),
+                email: this.email.toLowerCase(),
+                password: this.password
             }
-        });
+
+            // Register User
+            this.authService.registerUser(user).subscribe((data: any) => {
+                if (data.success) {
+                    this.router.navigate(['/login']);
+                } else {
+                    this.message = data.message;
+                }
+            });
+        }
     }
 }
