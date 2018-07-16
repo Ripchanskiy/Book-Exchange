@@ -1,7 +1,13 @@
 <div class="row">
     <div class="col-3">
         <div class="list-group categories">
-            <button type="button" *ngFor="let category of categories" routerLink="/" class="list-group-item list-group-item-action">
+            <button type="button" (click)="filter(null)" class="list-group-item list-group-item-action">
+                All
+                <span class="pull-right">
+                    <i class="material-icons button-arrow">play_arrow</i>
+                </span>
+            </button>
+            <button type="button" *ngFor="let category of categories" (click)="filter(category)" class="list-group-item list-group-item-action">
                 {{category}}
                 <span class="pull-right">
                     <i class="material-icons button-arrow">play_arrow</i>
@@ -14,7 +20,7 @@
         <div *ngIf="!books">
             <img class="loading" src="/assets/loading.gif">
         </div>
-        <div class="container booklist-item" *ngFor="let book of books">
+        <div class="container booklist-item" *ngFor="let book of books" [hidden]="book.category != selectedCategory && selectedCategory != null">
             <hr>
             <a routerLink="/books/{{book._id}}">
                 <div class="row">

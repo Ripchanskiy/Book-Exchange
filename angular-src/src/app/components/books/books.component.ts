@@ -12,6 +12,7 @@ export class BooksComponent implements OnInit {
 
     books: Object;
     categories: string[];
+    selectedCategory: string;
 
     constructor(private bookService: BookService) { }
 
@@ -20,5 +21,9 @@ export class BooksComponent implements OnInit {
         this.categories = categories;
         this.bookService.getBooks().subscribe(books => this.books = books);
         //this.bookService.getBooks().subscribe((books: any) => console.log(books[1].seller));
+    }
+
+    filter(category) {
+        this.selectedCategory = category;
     }
 }
