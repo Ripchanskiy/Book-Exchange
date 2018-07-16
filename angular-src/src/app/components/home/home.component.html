@@ -1,21 +1,14 @@
-<div class="container">
-    <div *ngIf="message">
-        <p>Hello</p>
-    </div>
-
-    <form (ngSubmit)="uploadImage()">
-        <div class="form-group">
-            <input type="file" class="form-control" name="image" (change)="onFileSelected($event)" accept="image/png, image/jpeg, image/gif">
-        </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
-
-    <div *ngIf="imagePath">
-            <p>Hello</p>
-        </div>
-    
-</div>
-
-<div>
-    Home works!
+<div class="jumbotron">
+    <h1 class="display-4">Welcome to the book exchange!</h1>
+    <p class="lead">Exchange books with people from all over the world!</p>
+    <hr class="my-4">
+    <p>Get started now!</p>
+    <p *ngIf="auth.loggedIn()" class="lead">
+        <a class="btn btn-primary btn-lg" routerLink="/books" role="button">View Books</a>
+        <a class="btn btn-outline-primary btn-lg" routerLink="/books/add" role="button">Add a book</a>
+    </p>
+    <p *ngIf="!auth.loggedIn()" class="lead">
+        <a class="btn btn-primary btn-lg" routerLink="/login" role="button">Login</a>
+        <a class="btn btn-outline-primary btn-lg" routerLink="/register" role="button">Sign Up</a>
+    </p>
 </div>

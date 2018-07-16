@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { UploadService } from '../../services/upload.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
     selector: 'app-home',
@@ -11,11 +12,14 @@ export class HomeComponent implements OnInit {
 
     message: string;
     selectedFile: File = null;
+    user: Object;
 
     constructor(private http: HttpClient,
-                private uploadService: UploadService) { }
+                private uploadService: UploadService,
+                private auth: AuthService) { }
 
     ngOnInit() {
+        this.user = this.auth.getUser();
     }
 
     onFileSelected(event) {
