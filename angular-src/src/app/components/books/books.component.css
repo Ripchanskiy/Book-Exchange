@@ -29,3 +29,10 @@ a {
 .categories {
     margin-top: 25px;
 }
+
+img.loading {
+    display: block;
+    margin: auto;
+    width: 100px;
+    height: 100px;
+}

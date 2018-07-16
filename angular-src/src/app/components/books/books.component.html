@@ -11,23 +11,30 @@
 
     </div>
     <div class="col-9">
+        <div *ngIf="!books">
+            <img class="loading" src="/assets/loading.gif">
+        </div>
         <div class="container booklist-item" *ngFor="let book of books">
             <hr>
-            <a routerLink="/books/{{book._id}}"><div class="row">
-                <div class="col-2">
-                    <img src={{book.imagePath}} onError="this.src='/assets/No_Image_Available.jpg'" class="img-thumbnail booklist-item-image" alt="">
+            <a routerLink="/books/{{book._id}}">
+                <div class="row">
+                    <div class="col-2">
+                        <img src={{book.imagePath}} onError="this.src='/assets/No_Image_Available.jpg'" class="img-thumbnail booklist-item-image"
+                            alt="">
+                    </div>
+                    <div class="col-7">
+                        <h4>{{book.title}}</h4>
+                        <p>{{book.author}}</p>
+                        <p>{{book.condition}} Condtion
+                            <br> ${{book.price}}</p>
+                    </div>
+                    <div class="col-3">
+                        <h4>Seller</h4>
+                        <p>{{book.seller.name}}
+                            <br /> {{book.seller.email}}</p>
+                    </div>
                 </div>
-                <div class="col-7">
-                    <h4>{{book.title}}</h4>
-                    <p>{{book.author}}</p>
-                    <p>{{book.condition}} Condtion <br> ${{book.price}}</p>
-                </div>
-                <div class="col-3">
-                    <h4>Seller</h4>
-                    <p>{{book.seller.name}}
-                        <br /> {{book.seller.email}}</p>
-                </div>
-            </div></a>
+            </a>
         </div>
     </div>
 </div>
