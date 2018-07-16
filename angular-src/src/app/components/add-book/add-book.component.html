@@ -1,6 +1,10 @@
+
 <div *ngIf="this.auth.loggedIn(); else logInToAddBook" class="container">
     <h2 class="page-header">Add Book</h2>
     <br />
+    <div *ngIf="message" class="alert alert-danger">
+        {{message}}
+    </div>
     <form (submit)="submitBook()">
         <div class="form-group">
             <label>Title</label>

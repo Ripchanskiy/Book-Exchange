@@ -30,6 +30,8 @@ export class AddBookComponent implements OnInit {
     selectedFile: File;
     uploading: boolean = false;
 
+    message: string;
+
     categories: string[];
     conditions: string[];
 
@@ -51,10 +53,16 @@ export class AddBookComponent implements OnInit {
     // TODO: Update form validation
     submitBook() {
 
-        if ((this.title != undefined && this.title != '') && (this.author != undefined && this.author != '')) {
+        if ((this.title && this.title != '') && 
+            (this.author && this.author != '') && 
+            (this.isbn && this.isbn != '') &&
+            (this.category && this.category != '') &&
+            (this.condition && this.condition != '') &&
+            (this.imagePath && this.imagePath != '') &&
+            (this.publisher && this.publisher != '') &&
+            (this.description && this.description != '') &&
+            (this.price && this.price != '')) {
 
-
-            console.log(this.imagePath);
             const book = {
                 title: this.title,
                 author: this.author,
@@ -77,7 +85,7 @@ export class AddBookComponent implements OnInit {
                 }
             });
         } else {
-            console.log('Please fill in all fields');
+            this.message = 'Please fill in all fields';
         }
     }
     
@@ -87,9 +95,9 @@ export class AddBookComponent implements OnInit {
         this.uploadService.uploadBookImage(fd).subscribe((event: any) => {
             if(event.type === HttpEventType.UploadProgress) {
                 console.log('Upload Progess:' + Math.round(event.loaded / event.total * 100) + '%');
+                this.uploading = true;
             } else if (event.type === HttpEventType.Response) {
                 this.imagePath = 'http://localhost:3000' + event.body.path.replace('public', '');
-                console.log(event.body.path);
                 this.uploading = false;               
             }
         });        
