@@ -13,28 +13,34 @@ export class BookDetailComponent implements OnInit {
     book: any;
 
     constructor(private bookService: BookService,
-                private router: Router,
-                private route: ActivatedRoute,
-                private auth: AuthService) { }
+        private router: Router,
+        private route: ActivatedRoute,
+        private auth: AuthService) { }
 
     ngOnInit() {
 
         const id = this.route.snapshot.paramMap.get('id');
-        this.bookService.getBook(id).subscribe(book => this.book = book);        
+        this.bookService.getBook(id).subscribe((book) => {
+            this.book = book
+            //If no description show no description message
+            if (!this.book.description || this.book.description == '') {
+                this.book.description = 'No description available';
+            }
+        });
     }
-    
+
     deleteBook(id) {
         this.bookService.deleteBook(id).subscribe((data: any) => {
-            if(data.success) {
-                this.router.navigate(['/books']);        
-            } else { 
+            if (data.success) {
+                this.router.navigate(['/books']);
+            } else {
                 console.log(data.message);
             }
         });
     }
 
-    sameUser() {        
-        if(this.auth.loggedIn() && (this.book.seller.id === this.auth.getUser().id)) {
+    sameUser() {
+        if (this.auth.loggedIn() && (this.book.seller.id === this.auth.getUser().id)) {
             return true;
         } else {
             return false;
